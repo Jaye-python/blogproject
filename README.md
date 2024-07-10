@@ -52,15 +52,15 @@ python manage.py createsuperuser
 ```
 python manage.py runserver
 ```
-11. You may view your Profile page by clicking on `Your Porfile` button on your top right
-12. You may view details of the blog posts by clicking the `eye` icon (from where you can put in a comment anonymously); delete by clicking the `trash` icon and edit by clicking the `pencil` icon. You can only edit and delete posts created by you
+11. You may view your Profile page by clicking on `Your Profile` button on your top right
+12. You may view details of each blog post by clicking the `eye` icon (from where you'd see a form to add a comment anonymously); delete by clicking the `trash` icon and edit by clicking the `pencil` icon. You can only edit and delete posts created by you
 13. You can view all Categories by clicking the `View all categories` button on your right
 14. You can sign up using the navigation on the right. The app uses `email` as `username`. To login, provide your `email` as `username`
-15. You can upload your profile picture by selecting the `Profile Update` button on the right after sign up
+15. You can upload your profile picture from your Profile Page. By selecting the `Update Profile` button on your top right after sign up
 16. From the homepage Blog Dashboard, you can `Create Blog Post`, `Create Category`, `View Blog Post Details`, `Delete Blog Posts`
-17. From the homepage Blog Dashboard, you may `Search Blog Posts` by their titles and content by typing any text in the provided input field and it will search all blog posts that contain this text after clicking `Search`
-18. `Filter Blog Posts` by selecting the Category in the provided input field and select `Filter by Category` button. ALL categories are dynamically loaded via JavaScript (even newly-created categories)
-19. You can also run all created tests
+17. From the homepage Blog Dashboard, you may `Search Blog Posts` by their titles and content by typing any text in the provided input field and it will search all blog posts that contain this text (after clicking `Search`)
+18. Filter Blog Posts by their Category by selecting your preferred Category in the provided input field and select `Filter by Category` button. ALL categories are dynamically loaded via JavaScript (even newly-created categories)
+19. You can also run all created tests by running:
 ```
 python manage.py test
 ```
