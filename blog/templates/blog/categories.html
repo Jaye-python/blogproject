@@ -1,0 +1,88 @@
+{% extends 'blog/base.html' %}
+{% block title %} Categories {% endblock %}
+
+{% block content %}
+<div class="container text-center">
+    <div class="row justify-content-center">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                <h5 class="text-2xl font-bold text-center text-blue-600 mb-4">{{ message }}</h5>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+{% load humanize %}
+
+<div class="container mx-auto m-6">   
+
+    <div class="flex justify-center mt-6">
+        <!-- blogposts Column -->
+        <div class="w-2/3">
+            <div class="p-4 bg-white rounded-md border border-blue-600 shadow-sm mb-4">
+                <h2 class="font-bold">Categories<span class="text-gray-500">({{ categories.count }})</span></h2>
+            </div>
+            <!-- Cards -->
+            {% for category in categories %}
+            <div class="space-y-4">
+                <div class="p-4 bg-white rounded-md shadow-sm">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-2">      
+                            <span class="text-white">
+                                <button class="p-2 bg-red-500 rounded-md">{{ category.name }}</button>
+                            </span>
+                            <a href="{% url 'update-category' pk=category.id %}">
+                                <button title='Update Category' class="text-blue-500"><i class="bi bi-pencil"></i></button>
+                            </a>
+
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="p-4 bg-gray-100 rounded-md shadow-sm mb-4">
+                        <h2 class="font-bold">Category Description</h2>
+                        <p class="text-gray-500">{{ category.description }}</p>
+
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="pagination mt-4 flex justify-center items-center space-x-2">
+                {% if page_obj.has_previous %}
+                <a href="?page=1" class="px-3 py-1 border rounded-md text-white bg-blue-400 hover:bg-gray-400">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 border rounded-md text-white bg-blue-400 hover:bg-gray-400">previous</a>
+                {% endif %}
+            
+                <span class="px-3 py-1 border rounded-md text-white bg-gray-500">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+            
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1 border rounded-md text-white bg-blue-400 hover:bg-gray-400">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-1 border rounded-md text-white bg-blue-400 hover:bg-gray-400">last &raquo;</a>
+                {% endif %}
+            </div>
+
+            <a href="{% url 'create-category' %}" class="btn btn-primary shadow-sm mt-2 px-4 py-2 bg-blue-600 text-white rounded-md cursor-pointer">
+            
+                Create Category
+            </a>
+
+            &nbsp; &nbsp;
+
+            <a class="btn btn-primary shadow-sm mt-2 px-4 py-2 bg-gray-600 text-white rounded-md cursor-pointer" onclick="history.go(-1)">Go back</a>
+            
+        </div>
+        <!-- blogposts Column -->
+    </div> <!-- flex -->
+</div> <!-- container -->
+
+
+{% endblock %}

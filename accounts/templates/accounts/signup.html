@@ -1,0 +1,81 @@
+{% extends 'blog/base.html' %}
+
+{% block title %} Blog App SignUp Page {% endblock %}
+
+{% block content %}
+<div class="flex justify-center items-center h-screen">
+    <div class="max-w-md w-full">
+        <div class="bg-gray-100 rounded-md shadow-md m-1 p-1 shadow-sm">
+            <div class="p-4">
+              <h1 class="text-2xl font-bold text-center text-blue-600">Sign Up</h1>
+              <hr class="my-4">
+                {% if messages %}
+                    {% for message in messages %}
+                        <p><i class="bi bi-envelope-fill" style="font-size: 4rem; color: rgb(96, 170, 12);"></i></p>
+                        <p><strong>{{ message }}</strong></p>
+                    {% endfor %}
+                {% endif %}
+
+                {% if form.errors %}
+                    <strong><p>Your username and password didn't match. Please try again.</p></strong>
+                {% endif %}
+
+                {% if next %}
+                    {% if user.is_authenticated %}
+                        <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+                    {% else %}
+                        <strong><p>Please login to see this page.</p></strong>
+                    {% endif %}
+                {% endif %}
+
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}  
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <span class="text-red-600"><strong>{{ error }}</strong></span>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    {% for field in form %}
+                    <div class="mb-4">
+                      <label class="block text-gray-700">{{ field.label }}</label>
+                      <div class="relative">
+                         {{ field }}
+                        {% if field.name == 'password1' %}
+                        <i class="bi bi-eye-slash-fill" id="togglePassword"></i>
+                        <p id="val{{ forloop.counter }}"></p>
+                        {% elif field.name == 'password2' %}
+                        <i class="bi bi-eye-slash-fill" id="togglePassword2"></i>
+                        <p id="val{{ forloop.counter }}"></p>                        
+                        {% endif %}
+
+                        {% for error in field.errors %}
+                        <p class="text-red-600">{{ error }}</p>
+                    {% endfor %}
+
+
+                      </div>
+
+
+                    </div>
+                    {% endfor %}
+                    
+                    <input class="btn btn-primary shadow-sm mt-2 px-4 py-2 bg-blue-600 text-white rounded-md cursor-pointer" type="submit" value="Sign Up">
+                </form>
+                <p>
+                    After signup you may click on 'Profile Update' by your left to upload your profile pixture
+                </p>
+                <br>
+                <a class="btn btn-primary shadow-sm mt-2 px-4 py-2 bg-gray-600 text-white rounded-md cursor-pointer" onclick="history.go(-1)">Go back</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    showPassword();
+    showPassword2();
+});
+</script>
+{% endblock %}

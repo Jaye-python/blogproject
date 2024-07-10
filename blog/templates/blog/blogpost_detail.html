@@ -1,0 +1,108 @@
+{% extends 'blog/base.html' %}
+{% block title %} Blog Post Page {% endblock %}
+
+{% block content %}
+{% load humanize %}
+
+<div class="flex justify-center mt-6">
+    <!-- blogposts Column -->
+    <div class="w-2/3">
+        <div class="p-4 bg-white rounded-md border border-blue-600 shadow-sm mb-4">
+            <h1 class="font-bold">Blog Posts Details <span class="text-gray-500">{{ blogpost.id }}</span></h1>
+        </div>
+
+        <div class="space-y-4">
+            <div class="p-4 bg-white rounded-md shadow-sm">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-2">
+                        {% if blogpost.category %}
+                        <a href="{% url 'update-category' pk=blogpost.category.id %}">
+                            <button title='Update Category' class="text-blue-500"><i class="bi bi-pencil"></i></button>
+                        </a>
+                                               
+                        <span class="text-white">
+                            <a title="Click to filter for this category only" href="?category={{ blogpost.category.name }}" class="p-2 bg-red-500 rounded-md">
+                                {{ blogpost.category }}
+                            </a>
+                        </span>
+                        {% else %}
+                        <span class="text-white">
+                            <a class="p-2 bg-red-500 rounded-md">
+                                No Category Selected
+                            </a>
+                        </span>
+                        {% endif %}
+
+                        <span class="text-blue-500">
+                            <button class="p-2 shadow bg-white rounded-md"><i class="bi bi-alarm"></i> {{ blogpost.created_at|naturalday|capfirst }}</button>
+                        </span>
+                        <span class="text-blue-600">
+                            <button class="p-2 bg-blue-100 rounded-md">{{ blogpost.title }}</button>
+                        </span>
+                    </div>
+                    <button class="text-gray-500">...</button>
+                </div>
+                <br>
+                <div class="p-4 bg-gray-100 rounded-md shadow-sm mb-4">
+                    <h2 class="font-bold">Post Content</h2>
+                    <p class="text-gray-500">{{ blogpost.content }}</p>
+                    <div class="flex items-center justify-between mt-4">
+                        {% if blogpost.author.profile_pix %}
+                        <div class="flex items-center space-x-2">
+                            <img src="{{ blogpost.author.profile_pix.url }}" title="Created by {{ blogpost.author }}" class="w-8 h-8 rounded-full object-cover" alt="{{ blogpost.author }}" />
+                           
+                        </div>
+                        {% endif %}
+                        <div class="flex items-center space-x-2">
+                            {% if user.is_authenticated and user.id == post.author.id %}
+                            <a href="{% url 'delete-blogpost' pk=blogpost.id %}">
+                                <button class="text-blue-500"><i class="bi bi-trash"></i></button>
+                            </a>
+                            <a href="{% url 'update-blogpost' pk=blogpost.id %}">
+                                <button class="text-blue-500"><i class="bi bi-pencil"></i></button>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="p-4 bg-gray-400 rounded-md shadow-sm mb-4">
+                    <h2 class="font-bold text-white">Comments</h2>
+                    {% for comment in comments %}
+                    <p class="text-white">{{ comment.comment }} <br>
+                      Posted {{ comment.created_at|naturalday|capfirst }} 
+                    </p>
+                    <br>                
+                    {% empty %}
+            <p class="text-white">No comments yet.</p>
+        {% endfor %}        
+                </div>
+
+                <div class="p-4 bg-gray-200 rounded-md shadow-sm mb-4">
+                    <h2 class="font-bold">Leave a comment</h2>
+
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        {{ comment_form.as_p }}
+                        <button type="submit" class="mt-4 p-2 bg-blue-500 text-white rounded-md">Submit Comment</button>
+                    </form>
+
+                           
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+        <a class="btn btn-primary shadow-sm mt-2 px-4 py-2 bg-gray-600 text-white rounded-md cursor-pointer" onclick="history.go(-1)">Go back</a>
+        
+    </div>
+    <!-- blogposts Column -->
+</div> <!-- flex -->
+
+{% endblock %}
+
