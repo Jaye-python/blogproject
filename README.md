@@ -1,4 +1,4 @@
-# Task Management Application
+# Blog Application
 This is a Blog app that allows for posting, editing, deleting, filtering and searching of blog posts. It is built using Django for the backend and HTML, TailwindCSS, and jQuery for the frontend.
 Tailwind CSS was added using CDN for faster development.
 
