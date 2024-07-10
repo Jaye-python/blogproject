@@ -59,7 +59,7 @@ python manage.py runserver
 15. You can upload your profile picture from your Profile Page. By selecting the `Update Profile` button on your top right after sign up
 16. From the homepage Blog Dashboard, you can `Create Blog Post`, `Create Category`, `View Blog Post Details`, `Delete Blog Posts`
 17. From the homepage Blog Dashboard, you may `Search Blog Posts` by their titles and content by typing any text in the provided input field and it will search all blog posts that contain this text (after clicking `Search`)
-18. Filter Blog Posts by their Category by selecting your preferred Category in the provided input field and select `Filter by Category` button. ALL categories are dynamically loaded via JavaScript (even newly-created categories)
+18. Filter Blog Posts by their Category by selecting your preferred Category in the provided input field and select `Filter by Category` button. ALL categories are dynamically loaded via JavaScript (even newly-created categories). You can also click on the Category button of each blog post to filter for all posts for that category 
 19. You can also run all created tests by running:
 ```
 python manage.py test
